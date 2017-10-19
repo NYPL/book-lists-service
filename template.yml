@@ -1,0 +1,27 @@
+
+AWSTemplateFormatVersion : '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+
+Description: |
+  BooksList service
+
+Resources:
+  GetFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Runtime: nodejs6.10
+      Handler: index.handler
+      Events:
+        GetList:
+          Type: Api
+          Properties:
+            Path: /api/v0.1/booklists/{type}/{date}
+            Method: get
+        PostList:
+          Type: Api
+          Properties:
+            Path: /api/v0.1/booklists
+            Method: post
+      Environment:
+        Variables:
+          BOOK_LISTS_BUCKET: 'book-lists'

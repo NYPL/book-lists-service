@@ -1,0 +1,22 @@
+{
+  "name": "book-lists-service",
+  "version": "1.0.0",
+  "description": "A simple CRUD service on BookLists",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NYPL/book-lists-service.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NYPL/book-lists-service/issues"
+  },
+  "homepage": "https://github.com/NYPL/book-lists-service#readme",
+  "dependencies": {
+    "aws-sdk": "^2.137.0"
+  }
+}
