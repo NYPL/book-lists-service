@@ -6,11 +6,12 @@ Description: |
   BooksList service
 
 Resources:
-  GetFunction:
+  ListsService:
     Type: AWS::Serverless::Function
     Properties:
       Runtime: nodejs6.10
       Handler: index.handler
+      # Role: 
       Events:
         GetList:
           Type: Api

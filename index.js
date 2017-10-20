@@ -9,7 +9,7 @@ module.exports.handler = (event, context, callback) => {
       // This slug pattern is a best guess for now:
       let slug = `${event.pathParameters.type}/${event.pathParameters.date}`
       // Fetch document from store (s3) and send to callback:
-      listStore.getList(slug).then((data) => {
+      listStore.getList(slug, { parseJson: false }).then((data) => {
         callback(null, {
           statusCode: 200,
           body: data
