@@ -21,7 +21,10 @@
   },
   "homepage": "https://github.com/NYPL/book-lists-service#readme",
   "dependencies": {
-    "aws-sdk": "^2.137.0"
+    "aws-sdk": "^2.137.0",
+    "aws-serverless-express": "^3.0.2",
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2"
   },
   "devDependencies": {
     "aws-sdk-mock": "^1.7.0",

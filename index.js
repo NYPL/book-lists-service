@@ -1,44 +1,31 @@
-const listStore = require('./lib/list-store')
+const awsServerlessExpress = require('aws-serverless-express')
+const app = require('./app')
+const server = awsServerlessExpress.createServer(app)
 
-module.exports.handler = (event, context, callback) => {
+module.exports = {
+  handler: (lambdaEvent, context, callback) => {
+    try {
+      context.callbackWaitsForEmptyEventLoop = false
+      context.succeed = (response) => {
+        callback(null, response)
+      }
+      return awsServerlessExpress.proxy(server, lambdaEvent, context)
+    } catch (error) {
+      console.error('=====> Error: ', error)
+    }
+  },
+
   /**
-   *  Simplest possible handler for GET /book-lists/{type}/{date}
+   * Special exit handler to enable callers to force socket to be closed as
+   * needed (i.e. in between tests)
+   * From https://github.com/awslabs/aws-serverless-express/blob/master/example/scripts/local.js
    */
-  if (event.httpMethod === 'GET') {
-    if (event.pathParameters && event.pathParameters.type && event.pathParameters.date) {
-      // This slug pattern is a best guess for now:
-      let slug = `${event.pathParameters.type}/${event.pathParameters.date}`
-      // Fetch document from store (s3) and send to callback:
-      listStore.getList(slug, { parseJson: false }).then((data) => {
-        callback(null, {
-          statusCode: 200,
-          body: data
-        })
-      })
-      .catch((e) => {
-        // Specially handle 404s (generalized error handling TK)
-        if (e.code === 'NoSuchKey') {
-          callback(null, {
-            statusCode: 404,
-            body: JSON.stringify({ error: 'Not found' })
-          })
-        } else {
-          callback(e)
-        }
-      })
+  exitHandler: (options, err) => {
+    if (options.cleanup && server && server.close) {
+      server.close()
     }
 
-  /**
-   *  Simplest possible handler for POSTs
-   */
-  } else if (event.httpMethod === 'POST') {
-    let data = JSON.parse(event.body)
-    listStore.saveList(data).then((data) => {
-      callback(null, {
-        statusCode: 200,
-        body: JSON.stringify(data, null, 2)
-      })
-    })
-    .catch((e) => callback(e))
+    if (err) console.error(err.stack)
+    if (options.exit) process.exit()
   }
 }
