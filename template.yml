@@ -26,3 +26,4 @@ Resources:
       Environment:
         Variables:
           BOOK_LISTS_BUCKET: 'book-lists'
+          VALID_BOOK_LIST_TYPES: 'staff-picks,teens'
