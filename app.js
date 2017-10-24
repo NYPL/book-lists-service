@@ -67,4 +67,10 @@ function handleError (error, req, res) {
   return res.status(status).send({ statusCode: status, error: error.message, errorCode: error.name })
 }
 
+const swaggerDocs = require('./swagger.v0.1.json')
+
+app.get('/docs', function (req, res) {
+  res.send(swaggerDocs)
+})
+
 module.exports = app

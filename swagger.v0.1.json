@@ -1,0 +1,64 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "0.1",
+    "title": "BookLists Service",
+    "description": "CRUD for Book Lists"
+  },
+  "host": "localhost:3000",
+  "basePath": "/api",
+  "schemes": [
+    "http"
+  ],
+  "tags": [
+    {
+      "name": "recap",
+      "description": "ReCAP API"
+    }
+  ],
+  "paths": {
+    "/v0.1/book-lists/{type}/{date}": {
+      "get": {
+        "tags": [
+        ],
+        "summary": "Get book-list by type, date",
+        "description": "",
+        "produces": [
+          "text\/xml",
+          "application\/json"
+        ],
+        "parameters": [
+          {
+            "name": "type",
+            "in": "path",
+            "description": "Book list type (e.g. staff-picks)",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "date",
+            "in": "path",
+            "description": "Book list date string (e.g. 2017-01)",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Book List as json"
+          },
+          "500": {
+            "description": "Error message in JSON format"
+          }
+        },
+        "security": [
+          {
+            "api_auth": [
+              "read:book-list"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

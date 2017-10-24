@@ -23,6 +23,11 @@ Resources:
           Properties:
             Path: /api/v0.1/book-lists
             Method: post
+        GetDocs:
+          Type: Api
+          Properties:
+            Path: /docs
+            Method: get
       Environment:
         Variables:
           BOOK_LISTS_BUCKET: 'book-lists'
