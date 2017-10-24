@@ -53,5 +53,5 @@
   "stageVariables": {
     "baz": "qux"
   },
-  "path": "/api/v0.1/booklists/staff-picks/2017-01"
+  "path": "/api/v0.1/book-lists/staff-picks/2017-01"
 }

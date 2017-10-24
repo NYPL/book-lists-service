@@ -2,7 +2,7 @@ const listStore = require('./lib/list-store')
 
 module.exports.handler = (event, context, callback) => {
   /**
-   *  Simplest possible handler for GET /booklists/{type}/{date}
+   *  Simplest possible handler for GET /book-lists/{type}/{date}
    */
   if (event.httpMethod === 'GET') {
     if (event.pathParameters && event.pathParameters.type && event.pathParameters.date) {
