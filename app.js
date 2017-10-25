@@ -69,7 +69,7 @@ function handleError (error, req, res) {
 
 const swaggerDocs = require('./swagger.v0.1.json')
 
-app.get('/docs', function (req, res) {
+app.get('/docs/book-lists', function (req, res) {
   res.send(swaggerDocs)
 })
 

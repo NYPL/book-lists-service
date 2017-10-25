@@ -26,7 +26,7 @@ Resources:
         GetDocs:
           Type: Api
           Properties:
-            Path: /docs
+            Path: /docs/book-lists
             Method: get
       Environment:
         Variables:
