@@ -11,6 +11,14 @@ const logger = require('./lib/logger')
 const listStore = require('./lib/list-store')
 const BookList = require('./lib/book-list')
 
+app.all('*', function (req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*')
+  res.header('Access-Control-Allow-Methods', 'GET, POST, DELETE, OPTIONS')
+  res.header('Access-Control-Allow-Headers', 'Content-Type')
+  app.baseUrl = `http${req.secure ? 's' : ''}://${req.headers.host}/api/v0.1/book-lists`
+  next()
+})
+
 /**
  *  Handle GET /book-lists/{type}/{date}
  */
@@ -25,6 +33,7 @@ app.get('/api/v0.1/book-lists/:type/:date', (req, res) => {
     let slug = `${req.params.type}/${req.params.date}`
     // Fetch document from store (s3) and send to callback:
     return listStore.getList(slug).then((data) => {
+      data['@context'] = `${app.baseUrl}/context.json`
       res.json(data)
     })
     .catch((e) => handleError(e, req, res))
@@ -42,6 +51,7 @@ app.post('/api/v0.1/book-lists', (req, res) => {
     return handleError(e)
   }
   listStore.saveList(list).then((data) => {
+    data['@context'] = `${app.baseUrl}/context.json`
     res.json(data)
   })
   .catch((e) => handleError(e, req, res))
@@ -71,6 +81,12 @@ const swaggerDocs = require('./swagger.v0.1.json')
 
 app.get('/docs/book-lists', function (req, res) {
   res.send(swaggerDocs)
+})
+
+const contextJson = require('./context.json')
+
+app.get('/api/v0.1/book-lists/context.json', function (req, res) {
+  res.send(contextJson)
 })
 
 module.exports = app

@@ -13,7 +13,7 @@
   "tags": [
     {
       "name": "recap",
-      "description": "ReCAP API"
+      "description": "Book Lists Service"
     }
   ],
   "paths": {
@@ -109,18 +109,18 @@
       "title": "Pick",
       "type": "object",
       "properties": {
-        "reviewerName": {
+        "ageGroup": {
           "type": "string",
-          "description": "Name of reviewer"
+          "description": "Named age group? (e.g. \"Adult\") (Appears in Staff Picks)"
         },
-        "reviewerLocation": {
-          "type": "string",
-          "description": "Location of reviewer",
-          "example": "Volunteers Office"
+        "book": {
+          "$ref": "#/definitions/BookListBook"
         },
-        "text": {
-          "type": "string",
-          "description": "Text of review"
+        "reviews": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/BookListReview"
+          }
         },
         "tags": {
           "type": "array",
@@ -128,26 +128,45 @@
           "items": {
             "type": "string"
           }
-        },
-        "title": {
+        }
+      }
+    },
+    "BookListReview": {
+      "title": "BookListReview",
+      "type": "object",
+      "properties": {
+        "reviewerName": {
           "type": "string",
-          "description": "title of book"
+          "description": "Name of reviewer"
         },
+        "reviewerLocation": {
+          "type": "object",
+          "description": "Location of reviewer",
+          "properties": {
+            "@id": { 
+              "type": "string",
+              "description": "Org id"
+            },
+            "prefLabel": {
+              "type": "string",
+              "description": "Display label for location",
+              "example": "Volunteers Office"
+            }
+          }
+        },
+        "text": {
+          "type": "string",
+          "description": "Text of review"
+        }
+      }
+    },
+    "BookListBook": {
+      "title": "BookListBook",
+      "type": "object",
+      "properties": {
         "author": {
           "type": "string",
           "description": "Name of author"
-        },
-        "illustrator": {
-          "type": "string",
-          "description": "Name of illustrator (opt)"
-        },
-        "translator": {
-          "type": "string",
-          "description": "Name of translator (opt)"
-        },
-        "publisher": {
-          "type": "string",
-          "description": "Name of publisher (opt)"
         },
         "catalogUrl": {
           "type": "string",
@@ -157,13 +176,13 @@
           "type": "string",
           "description": "E-book link"
         },
+        "illustrator": {
+          "type": "string",
+          "description": "Name of illustrator (opt)"
+        },
         "imageUrl": {
           "type": "string",
           "description": "Content Cafe link"
-        },
-        "ageGroup": {
-          "type": "string",
-          "description": "Named age group? (e.g. \"Adult\") (Appears in Staff Picks)"
         },
         "isbn": {
           "type": "string",
@@ -172,6 +191,18 @@
         "overdriveId": {
           "type": "string",
           "description": "Overdrive ID"
+        },
+        "publisher": {
+          "type": "string",
+          "description": "Name of publisher (opt)"
+        },
+        "title": {
+          "type": "string",
+          "description": "title of book"
+        },
+        "translator": {
+          "type": "string",
+          "description": "Name of translator (opt)"
         }
       }
     }

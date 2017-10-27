@@ -1,0 +1,17 @@
+{
+  "@context": {
+    "dc": "http://purl.org/dc/elements/1.1/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "orgs": "http://data.nypl.org/organizations/",
+ 
+    "bnumber": "dcterms:identifier",
+    "date": "dcterms:created",
+    "isbn": "dcterms:identifier",
+    "reviewerName": "dc:creator",
+
+    "tag": "dc:subject",
+    "title": "dcterms:title",
+    "author": "dc:creator",
+    "reviewerName": "dc:creator"
+  }
+}
