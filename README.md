@@ -16,6 +16,8 @@ Running the app behind a local API Gateway requires `sam` to be installed global
 
 See package.json
 
+Also requires a global install of [aws-sam-local](https://www.npmjs.com/package/aws-sam-local) (because local installs on OSX fail currently).
+
 ## Installation
 
 `npm i`

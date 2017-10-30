@@ -3,7 +3,7 @@ const awsServerlessExpressMiddleware = require('aws-serverless-express/middlewar
 const app = express()
 const bodyParser = require('body-parser')
 
-app.use(bodyParser.json())
+app.use(bodyParser.json({ limit: '10mb' }))
 app.use(awsServerlessExpressMiddleware.eventContext())
 
 const errors = require('./lib/errors')
@@ -48,7 +48,7 @@ app.post('/api/v0.1/book-lists', (req, res) => {
   try {
     list = BookList.from(req.body)
   } catch (e) {
-    return handleError(e)
+    return handleError(e, req, res)
   }
   listStore.saveList(list).then((data) => {
     data['@context'] = `${app.baseUrl}/context.json`
