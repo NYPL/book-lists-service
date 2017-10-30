@@ -93,7 +93,7 @@
           "description": "Identifier for list unique across all list types. Conventionally composed of type and date",
           "example": "staff-picks/2017-01"
         },
-        "heroUrl": {
+        "heroImageUrl": {
           "type": "string",
           "description": "URL of hero image"
         },
