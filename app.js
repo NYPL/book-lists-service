@@ -103,7 +103,7 @@ let parseEnumParam = (value, range) => {
  * @throws {InvalidParameterError} if not valid
  */
 let parseDateParam = (value, range) => {
-  if (!/^\d{4}(-\d+){1,2}$/.test(value)) throw new errors.InvalidParameterError('Invalid date value')
+  if (!/^\d{4}(-\d+){0,2}$/.test(value)) throw new errors.InvalidParameterError('Invalid date value')
   return value
 }
 
