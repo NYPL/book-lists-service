@@ -24,7 +24,9 @@
     "aws-sdk": "^2.137.0",
     "aws-serverless-express": "^3.0.2",
     "body-parser": "^1.18.2",
-    "express": "^4.16.2"
+    "express": "^4.16.2",
+    "node-cache": "^4.1.1",
+    "qs": "^6.5.1"
   },
   "devDependencies": {
     "aws-sdk-mock": "^1.7.0",
