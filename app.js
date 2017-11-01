@@ -6,6 +6,7 @@ const bodyParser = require('body-parser')
 app.use(bodyParser.json({ limit: '10mb' }))
 app.use(awsServerlessExpressMiddleware.eventContext())
 
+const config = require('./lib/config')
 const errors = require('./lib/errors')
 const logger = require('./lib/logger')
 const listStore = require('./lib/list-store')
@@ -23,21 +24,40 @@ app.all('*', function (req, res, next) {
  *  Handle GET /book-lists/{type}/{date}
  */
 app.get('/api/v0.1/book-lists/:type/:date', (req, res) => {
-  if (!req.params.type || !req.params.date) {
-    let missing = []
-    if (!req.params.type) missing.push('type')
-    if (!req.params.date) missing.push('date')
-    return handleError(new errors.InvalidParameterError(`Missing in path: ${missing.join(', ')}`), req, res)
-  } else {
+  parseParams(req.params).then((params) => {
     // This slug pattern is a best guess for now:
-    let slug = `${req.params.type}/${req.params.date}`
+    let slug = `${params.type}/${params.date}`
     // Fetch document from store (s3) and send to callback:
     return listStore.getList(slug).then((data) => {
       data['@context'] = `${app.baseUrl}/context.json`
       res.json(data)
     })
-    .catch((e) => handleError(e, req, res))
-  }
+  })
+  .catch((e) => handleError(e, req, res))
+})
+
+/**
+ *  Handle GETs on /book-lists
+ *
+ *  Optional params:
+ *   - `per_page`: {integer} Number of results to return
+ *   - `from_slug`: {string} For pagination, returns matches *after* this slug
+ *   - `type`: {string} Filter on list type (e.g. kids, teens, staff-picks)
+ */
+app.get('/api/v0.1/book-lists', (req, res) => {
+  parseParams(req.query).then((params) => {
+    let options = { filter: {} }
+    if (params.per_page) options.perPage = params.per_page
+    if (params.from_slug) options.fromSlug = params.from_slug
+    if (params.type) options.filter.type = params.type
+
+    listStore.getAllLists(options)
+      .then((data) => {
+        data['@context'] = `${app.baseUrl}/context.json`
+        res.json(data)
+      })
+  })
+  .catch((e) => handleError(e, req, res))
 })
 
 /**
@@ -57,6 +77,72 @@ app.post('/api/v0.1/book-lists', (req, res) => {
   .catch((e) => handleError(e, req, res))
 })
 
+/**
+ * Param parse Integer
+ *
+ * @throws {InvalidParameterError} if empty/invalid
+ */
+let parseIntParam = (value) => {
+  if (!/\d+/.test(value)) throw new errors.InvalidParameterError('Invalid integer value')
+  return parseInt(value)
+}
+
+/**
+ * Param parse from range of valid values
+ *
+ * @throws {InvalidParameterError} if not found in range
+ */
+let parseEnumParam = (value, range) => {
+  if (range.indexOf(value) < 0) throw new errors.InvalidParameterError(`Value not in range: ${range.join(', ')}`)
+  return value
+}
+
+/**
+ * Param parse date
+ *
+ * @throws {InvalidParameterError} if not valid
+ */
+let parseDateParam = (value, range) => {
+  if (!/^\d{4}(-\d+){1,2}$/.test(value)) throw new errors.InvalidParameterError('Invalid date value')
+  return value
+}
+
+/**
+ * Parse common query params. Given a hash of values (presumably req.query),
+ *
+ * @returns {hash} Lookup composed of valid keys mapped to parsed values
+ */
+function parseParams (params) {
+  return new Promise((resolve, reject) => {
+    let result = Object.keys(params).reduce((result, param) => {
+      let value = null
+      try {
+        switch (param) {
+          case 'per_page':
+            value = parseIntParam(params[param])
+            break
+          case 'type':
+            value = parseEnumParam(params[param], config.VALID_BOOK_LIST_TYPES)
+            break
+          case 'date':
+            value = parseDateParam(params[param])
+            break
+          case 'from_slug':
+            value = params[param]
+        }
+      } catch (e) {
+        reject(new errors.InvalidParameterError(`Error parsing '${param}' param: ${e.message}`))
+      }
+      if (value) result[param] = value
+      return result
+    }, {})
+    resolve(result)
+  })
+}
+
+/**
+ * General error handling. Writes error to response in consistent way
+ */
 function handleError (error, req, res) {
   let status = null
 
@@ -77,14 +163,18 @@ function handleError (error, req, res) {
   return res.status(status).send({ statusCode: status, error: error.message, errorCode: error.name })
 }
 
+/**
+ * Serve swagger file:
+ */
 const swaggerDocs = require('./swagger.v0.1.json')
-
 app.get('/docs/book-lists', function (req, res) {
   res.send(swaggerDocs)
 })
 
+/**
+ * Serve context.json:
+ */
 const contextJson = require('./context.json')
-
 app.get('/api/v0.1/book-lists/context.json', function (req, res) {
   res.send(contextJson)
 })

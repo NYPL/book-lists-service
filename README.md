@@ -6,6 +6,18 @@ This is a simple CRU[D] service for BookLists backed by S3, deployed as a lambda
 
 This app provides get/fetch capability for Book Lists
 
+### Routes
+
+This app serves the following routes:
+
+ * `GET /api/v0.1/book-lists/{type}/{date}`: Get BookList by slug (i.e. {type}/{date})
+ * `GET /api/v0.1/book-lists`: Get all BookLists (optionally by type)
+ * `POST /api/v0.1/book-lists`: Save a new/updated booklist
+ * `GET /api/v0.1/book-lists/context.json`: Retrieve JSON-LD context document
+ * `GET /docs/book-lists`: Retrieve [Swagger](https://swagger.io/specification/) document describing endpoints & models
+ 
+See [swagger.v0.1.json](swagger.v0.1.json) for detailed route & model documentation.
+
 ## Requirements
 
 You must have a `nypl-sandbox` or `nypl-digital-dev` profile to run anything against real data.

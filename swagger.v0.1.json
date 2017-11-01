@@ -25,7 +25,6 @@
         "summary": "Get book-list by type, date",
         "description": "",
         "produces": [
-          "text/xml",
           "application/json"
         ],
         "parameters": [
@@ -63,6 +62,114 @@
           }
         ]
       }
+    },
+    "/v0.1/book-lists": {
+      "get": {
+        "tags": [
+          "book-lists"
+        ],
+        "summary": "Get all book-lists",
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "type",
+            "in": "query",
+            "description": "Book list type (e.g. staff-picks)",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "per_page",
+            "in": "query",
+            "description": "Number of results to return. Default 20",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "from_slug",
+            "in": "query",
+            "description": "For paginating, set from_slug to the last slug seen to retrieve all lists after that point.",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Book List stubs as json",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/BookList"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error message in JSON format"
+          }
+        },
+        "security": [
+          {
+            "api_auth": [
+              "read:book-list"
+            ]
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "book-lists"
+        ],
+        "summary": "Post new/updated book-list",
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "booklist",
+            "in": "body",
+            "description": "Book list as JSON",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/BookList"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Book List stub as json",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/BookList"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error message in JSON format"
+          }
+        },
+        "security": [
+          {
+            "api_auth": [
+              "write:book-list"
+            ]
+          }
+        ]
+      }
     }
   },
   "definitions": {
@@ -70,6 +177,35 @@
       "title": "BookList",
       "type": "object",
       "properties": {
+        
+        "date": {
+          "type": "string",
+          "example": "2017",
+          "description": "String representing the date of publication, with either year or month specificity"
+        },
+        "heroImageUrl": {
+          "type": "string",
+          "description": "URL of hero image",
+          "required": false
+        },
+        "picks": {
+          "type": "array",
+          "required": false,
+          "items": {
+            "$ref": "#/definitions/BookListPick"
+          }
+        },
+        "slug": {
+          "type": "string",
+          "description": "Identifier for list unique across all list types. Conventionally composed of type and date",
+          "example": "staff-picks/2017-01"
+        },
+        "title": {
+          "description": "User facing name of list",
+          "type": "string",
+          "example": "Best Books for Teens 2017",
+          "required": false
+        },
         "type": {
           "type": "string",
           "enum": [
@@ -77,31 +213,6 @@
             "kids",
             "teens"
           ]
-        },
-        "date": {
-          "type": "string",
-          "example": "2017",
-          "description": "String representing the date of publication, with either year or month specificity"
-        },
-        "title": {
-          "description": "User facing name of list",
-          "type": "string",
-          "example": "Best Books for Teens 2017"
-        },
-        "slug": {
-          "type": "string",
-          "description": "Identifier for list unique across all list types. Conventionally composed of type and date",
-          "example": "staff-picks/2017-01"
-        },
-        "heroImageUrl": {
-          "type": "string",
-          "description": "URL of hero image"
-        },
-        "picks": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/BookListPick"
-          }
         }
       }
     },
