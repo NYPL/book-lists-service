@@ -57,7 +57,7 @@
         "security": [
           {
             "api_auth": [
-              "read:book-list"
+              "read:book_list"
             ]
           }
         ]
@@ -118,7 +118,7 @@
         "security": [
           {
             "api_auth": [
-              "read:book-list"
+              "read:book_list"
             ]
           }
         ]
@@ -165,7 +165,7 @@
         "security": [
           {
             "api_auth": [
-              "write:book-list"
+              "write:book_list"
             ]
           }
         ]
@@ -185,12 +185,11 @@
         },
         "heroImageUrl": {
           "type": "string",
-          "description": "URL of hero image",
-          "required": false
+          "description": "URL of hero image"
         },
         "picks": {
           "type": "array",
-          "required": false,
+          "description": "Array of picks ordered by book.title (ignoring leading 'The'/'A')",
           "items": {
             "$ref": "#/definitions/BookListPick"
           }
@@ -203,8 +202,7 @@
         "title": {
           "description": "User facing name of list",
           "type": "string",
-          "example": "Best Books for Teens 2017",
-          "required": false
+          "example": "Best Books for Teens 2017"
         },
         "type": {
           "type": "string",
@@ -214,7 +212,10 @@
             "teens"
           ]
         }
-      }
+      },
+      "required": [
+        "date", "type", "slug"
+      ]
     },
     "BookListPick": {
       "title": "Pick",
