@@ -6,3 +6,5 @@ node_modules
 # AWS Lambda credentials
 config/qa.env
 config/production.env
+config/sam-template.qa.env
+config/sam-template.production.env

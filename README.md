@@ -43,9 +43,11 @@ This app uses `node-lambda` to deploy, `sam` for local ad hoc testing. (It has t
 `SAM` has proven really nice for running a server locally because it runs the app in a docker instance and requires zero extra `listen` code.
 
 To run against QA data:
+`cp sam-template.sample.yml sam-template.qa.yml`
 `npm run run-qa`
 
 To run against Production data:
+`cp sam-template.sample.yml sam-template.production.yml`
 `npm run run-production`
 
 If that's way too convenient, you can invoke lambda locally against an artisinal API gateway event like this:
