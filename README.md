@@ -42,6 +42,15 @@ This app uses `node-lambda` to deploy, `sam` for local ad hoc testing. (It has t
 
 `SAM` has proven really nice for running a server locally because it runs the app in a docker instance and requires zero extra `listen` code.
 
+Initialize your environment sam template for the relevant environment (development, qa, production):
+
+```
+cp sam-template.sample.yml sam-template.[environment].yml`
+```
+
+To run against Dev data:
+`npm run run-development`
+
 To run against QA data:
 `npm run run-qa`
 
@@ -59,6 +68,13 @@ The above was generated from `sam local generate-event api --method GET > sample
 `npm test`
 
 ### Deploy
+
+We use `node-lambda` for deploy, so make sure you have a .env file with deployable variables in `./config/[environment].env`, e.g.
+
+`cp config/sample.env config/development.env`
+
+Development:
+`npm run deploy-development`
 
 QA:
 `npm run deploy-qa`

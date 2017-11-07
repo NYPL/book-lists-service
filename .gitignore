@@ -4,5 +4,9 @@ node_modules
 .DS_Store
 
 # AWS Lambda credentials
+config/development.env
 config/qa.env
 config/production.env
+sam-template.development.yml
+sam-template.qa.yml
+sam-template.production.yml
