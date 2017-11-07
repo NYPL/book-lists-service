@@ -158,7 +158,9 @@ function handleError (error, req, res) {
       status = 500
   }
 
-  logger.error('Error processing request', { error: error.message, path: req.path, params: req.params, query: req.query })
+  // Log to error if status >= 500, otherwise log to info (because it's probably an input error)
+  let appropriateLogLevel = status < 500 ? logger.info : logger.error
+  appropriateLogLevel('Error processing request', { error: error.message, path: req.path, params: req.params, query: req.query })
 
   return res.status(status).send({ statusCode: status, error: error.message, errorCode: error.name })
 }

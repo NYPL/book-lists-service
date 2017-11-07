@@ -37,5 +37,17 @@
     "lambda-tester": "^3.1.0",
     "mocha": "^4.0.1",
     "node-lambda": "^0.11.4"
+  },
+  "standard": {
+    "globals": [
+      "expect",
+      "assert",
+      "describe",
+      "it",
+      "before",
+      "after",
+      "beforeEach",
+      "afterEach"
+    ]
   }
 }

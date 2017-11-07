@@ -1,0 +1,76 @@
+{
+  "IsTruncated": false,
+  "Marker": "",
+  "Contents": [
+    {
+      "Key": "kids/",
+      "LastModified": "2017-11-03T20:43:41.000Z",
+      "ETag": "\"d41d8cd98f00b204e9800998ecf8427e\"",
+      "Size": 0,
+      "StorageClass": "STANDARD",
+      "Owner": {
+        "DisplayName": "awssandbox",
+        "ID": "6d1123cd81f5ec264df2bb76d8fee6f069bd33203777697f6b40cfc7c5cf5a1a"
+      }
+    },
+    {
+      "Key": "kids/2017.json",
+      "LastModified": "2017-11-06T17:42:22.000Z",
+      "ETag": "\"aa4b3bb08f2b9e416a32ff9ecf7fb67d\"",
+      "Size": 81759,
+      "StorageClass": "STANDARD",
+      "Owner": {
+        "DisplayName": "awssandbox",
+        "ID": "6d1123cd81f5ec264df2bb76d8fee6f069bd33203777697f6b40cfc7c5cf5a1a"
+      }
+    },
+    {
+      "Key": "staff-picks/",
+      "LastModified": "2017-11-03T20:52:58.000Z",
+      "ETag": "\"d41d8cd98f00b204e9800998ecf8427e\"",
+      "Size": 0,
+      "StorageClass": "STANDARD",
+      "Owner": {
+        "DisplayName": "awssandbox",
+        "ID": "6d1123cd81f5ec264df2bb76d8fee6f069bd33203777697f6b40cfc7c5cf5a1a"
+      }
+    },
+    {
+      "Key": "staff-picks/2017-01.json",
+      "LastModified": "2017-11-03T20:53:29.000Z",
+      "ETag": "\"1a857d45740b917881551238cd884077\"",
+      "Size": 153472,
+      "StorageClass": "STANDARD",
+      "Owner": {
+        "DisplayName": "awssandbox",
+        "ID": "6d1123cd81f5ec264df2bb76d8fee6f069bd33203777697f6b40cfc7c5cf5a1a"
+      }
+    },
+    {
+      "Key": "teens/",
+      "LastModified": "2017-11-03T20:53:03.000Z",
+      "ETag": "\"d41d8cd98f00b204e9800998ecf8427e\"",
+      "Size": 0,
+      "StorageClass": "STANDARD",
+      "Owner": {
+        "DisplayName": "awssandbox",
+        "ID": "6d1123cd81f5ec264df2bb76d8fee6f069bd33203777697f6b40cfc7c5cf5a1a"
+      }
+    },
+    {
+      "Key": "teens/2017.json",
+      "LastModified": "2017-11-03T20:53:56.000Z",
+      "ETag": "\"b8152b54e8ac043c3b9fcff750a3caa2\"",
+      "Size": 41752,
+      "StorageClass": "STANDARD",
+      "Owner": {
+        "DisplayName": "awssandbox",
+        "ID": "6d1123cd81f5ec264df2bb76d8fee6f069bd33203777697f6b40cfc7c5cf5a1a"
+      }
+    }
+  ],
+  "Name": "book-lists-development",
+  "Prefix": "",
+  "MaxKeys": 20,
+  "CommonPrefixes": []
+}

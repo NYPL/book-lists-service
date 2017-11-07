@@ -29,7 +29,7 @@ describe('Lambda index handler', function () {
     return LambdaTester(handler)
       .event({
         httpMethod: 'GET',
-        path: '/api/v0.1/book-lists/staff-picks/2017-13-does-not-exist'
+        path: '/api/v0.1/book-lists/staff-picks/2017-13'
       })
       .expectResult((result) => {
         expect(result.statusCode).to.equal(404)
