@@ -105,7 +105,7 @@
                 "data": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/definitions/BookList"
+                    "$ref": "#/definitions/BookListStub"
                   }
                 }
               }
@@ -171,7 +171,7 @@
         ]
       }
     }
-  },
+  },,
   "definitions": {
     "BookList": {
       "title": "BookList",
@@ -187,12 +187,18 @@
           "type": "string",
           "description": "URL of hero image"
         },
+        "nextBookList": {
+          "$ref": "#/definitions/BookListStub"
+        },
         "picks": {
           "type": "array",
           "description": "Array of picks ordered by book.title (ignoring leading 'The'/'A')",
           "items": {
             "$ref": "#/definitions/BookListPick"
           }
+        },
+        "previousBookList": {
+          "$ref": "#/definitions/BookListStub"
         },
         "slug": {
           "type": "string",
@@ -317,6 +323,31 @@
           "description": "Name of translator (opt)"
         }
       }
+    },
+    "BookListStub": {
+      "title": "BookListStub",
+      "type": "object",
+      "properties": {
+        "date": {
+          "type": "string",
+          "example": "2017",
+          "description": "String representing the date of publication, with either year or month specificity"
+        },
+        "slug": {
+          "type": "string",
+          "description": "Identifier for list unique across all list types. Conventionally composed of type and date",
+          "example": "staff-picks/2017-01"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "staff-picks",
+            "kids",
+            "teens"
+          ]
+        }
+      },
+      "required": [ "slug", "type", "date" ]
     }
   }
 }
