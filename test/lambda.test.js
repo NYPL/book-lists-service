@@ -10,6 +10,10 @@ process.on('SIGTSTP', exitHandler.bind(null, { exit: true })) // ctrl+v event
 process.on('uncaughtException', exitHandler.bind(null, { exit: true }))
 
 describe('Lambda index handler', function () {
+  after(function () {
+    exitHandler({ cleanup: true })
+  })
+
   it('should respond with 200 if path valid', function () {
     return LambdaTester(handler)
       .event({
