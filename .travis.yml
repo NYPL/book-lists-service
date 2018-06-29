@@ -1,0 +1,30 @@
+language: node_js
+node_js:
+- '6'
+cache:
+  directories:
+  - node_modules
+install: npm install
+before_script: echo 'Running unit tests'
+script: npm test
+before_deploy: echo 'All unit tests passed; Preparing to deploy to AWS'
+deploy:
+- provider: script
+  skip_cleanup: true
+  script: npm run deploy-development
+  on:
+    branch: development
+- provider: script
+  skip_cleanup: true
+  script: npm run deploy-qa
+  on:
+    branch: qa
+- provider: script
+  skip_cleanup: true
+  script: npm run deploy-production
+  on:
+    branch: master
+after_deploy: echo 'Successfully deployed to AWS'
+env:
+  global:
+    secure: Uy2FPBzr/6gbeAuXmSXohN4KBjxLBfTXGWLCu6yLgvwpTTEJyODJ8j1x+ztG2jFxpL454yXrlHGz6j53/SG4c+KPIVQ0YM3u+OTS9J/e9VProRcm2eGnv7pPm+3ZwdmSijxidI2RJU4RrDTnvC0Vd6IK3W4lk/RuzYCtQlluynXQCz0vqn2DlXSZmjty6PMVTDBAPYHMLrb8dnDEy1T1yZ9X/Sw88FA/AHXB8E9qgq3rp49F0QnHhWmSmcQ3sNnr2KOkyVMUdz8kZ0Qw8Yi0fUQedxmstnqfYTZjYMpu7F8kOpjAUo/3OxN4/yffWpSdXX/2KNVriq2tAzZPIyAsGCA/TrMTpEjOOXlvl2kZxNTh12opzvT2kPrpoE7HiCWKIWxfkVkfsuJSUDKZXV5y40cKTXVc3sM5y5mIX/nOPiqLmlE6WqHovvDjiv0rodK8b3VeQJmDxsmyRqSnNhMR6BbUZdBoIICYk6pMqDTe4ywxFI7GybzU9wKshvDfKkW3C2IbTXJTxbRlrsT9pRezJU62O96RJ8q3d3vPt7ky5g5WZyegYkaQLsUuXbQ9LnUkpdVyktixRkd82H+3aj3/RvX3kdyKGVvulM0yqfA4rKNTF0su8WgQ20VEbb9cc5B/58b9iat57q1ZlgaGeV6/M0oZpHmQ/B6ZH3QBpnvIm+s=

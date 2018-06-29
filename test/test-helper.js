@@ -21,7 +21,7 @@ before(function () {
     try {
       let localPath = path.join('./test/data/getObject', params.Key)
       let content = fs.readFileSync(localPath)
-      callback(null, { Body: new Buffer(content) })
+      callback(null, { Body: Buffer.from(content) })
     } catch (e) {
       // Treat missing fixture as 404
       callback(new NoSuchKeyError())

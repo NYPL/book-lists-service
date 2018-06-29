@@ -33,7 +33,7 @@ app.get('/api/v0.1/book-lists/:type/:date', (req, res) => {
       res.json(data)
     })
   })
-  .catch((e) => handleError(e, req, res))
+    .catch((e) => handleError(e, req, res))
 })
 
 /**
@@ -57,7 +57,7 @@ app.get('/api/v0.1/book-lists', (req, res) => {
         res.json(data)
       })
   })
-  .catch((e) => handleError(e, req, res))
+    .catch((e) => handleError(e, req, res))
 })
 
 /**
@@ -74,7 +74,7 @@ app.post('/api/v0.1/book-lists', (req, res) => {
     data['@context'] = `${app.baseUrl}/context.json`
     res.json(data)
   })
-  .catch((e) => handleError(e, req, res))
+    .catch((e) => handleError(e, req, res))
 })
 
 /**

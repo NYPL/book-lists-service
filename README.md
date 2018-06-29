@@ -69,15 +69,8 @@ The above was generated from `sam local generate-event api --method GET > sample
 
 ### Deploy
 
-We use `node-lambda` for deploy, so make sure you have a .env file with deployable variables in `./config/[environment].env`, e.g.
+This repo is configured to use Travis with `node-lambda` for continuous deployments. Environment variables are set for each environment from configuration files: `./config/[environment].env`.
 
-`cp config/sample.env config/development.env`
+Travis will automatically deploy on passing builds from the `development`, `qa`, and `master` branches to the corresponding environments.
 
-Development:
-`npm run deploy-development`
-
-QA:
-`npm run deploy-qa`
-
-Prod:
-`npm run deploy-production`
+To deploy locally for testing purposes, you can also use the corresponding NPM command: `npm run deploy-[environment]-local`.
