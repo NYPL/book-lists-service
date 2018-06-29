@@ -53,14 +53,7 @@
           "500": {
             "description": "Error message in JSON format"
           }
-        },
-        "security": [
-          {
-            "api_auth": [
-              "read:book_list"
-            ]
-          }
-        ]
+        }
       }
     },
     "/v0.1/book-lists": {
@@ -114,14 +107,7 @@
           "500": {
             "description": "Error message in JSON format"
           }
-        },
-        "security": [
-          {
-            "api_auth": [
-              "read:book_list"
-            ]
-          }
-        ]
+        }
       },
       "post": {
         "tags": [
