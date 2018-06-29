@@ -4,11 +4,14 @@
   "description": "A simple CRUD service on BookLists",
   "main": "index.js",
   "scripts": {
-    "deploy-development": "./node_modules/.bin/node-lambda deploy -e development -f ./config/development.env -b subnet-f4fe56af -g sg-1d544067 --role arn:aws:iam::224280085904:role/lambda_basic_execution --profile nypl-sandbox",
+    "deploy-development": "./node_modules/.bin/node-lambda deploy -e development -f ./config/development.env -o arn:aws:iam::224280085904:role/lambda_basic_execution -a $aws_access_key_id_development -s $aws_secret_access_key_development",
+    "deploy-development-local": "./node_modules/.bin/node-lambda deploy -e development -f ./config/development.env -g sg-1d544067 --role arn:aws:iam::224280085904:role/lambda_basic_execution --profile nypl-sandbox",
+    "deploy-qa": "./node_modules/.bin/node-lambda deploy -e qa -f ./config/qa.env -o arn:aws:iam::946183545209:role/lambda-full-access -a $aws_access_key_id_qa -s $aws_secret_access_key_qa",
+    "deploy-qa-local": "./node_modules/.bin/node-lambda deploy -e qa -f ./config/qa.env -g sg-116eeb60 --role arn:aws:iam::946183545209:role/lambda-full-access --profile nypl-digital-dev",
+    "deploy-production": "./node_modules/.bin/node-lambda deploy -e production -f ./config/production.env -o arn:aws:iam::946183545209:role/lambda-full-access -a $aws_access_key_id_production -s $aws_secret_access_key_production",
+    "deploy-production-local": "./node_modules/.bin/node-lambda deploy -e production -f ./config/production.env -g sg-116eeb60 --role arn:aws:iam::946183545209:role/lambda-full-access --profile nypl-digital-dev",
     "run-development": "sam local start-api --port 3001 --profile nypl-sandbox --template ./sam-template.development.yml",
-    "deploy-qa": "./node_modules/.bin/node-lambda deploy -e qa -f ./config/qa.env -b subnet-59bcdd03,subnet-5deecd15 -g sg-116eeb60 --role arn:aws:iam::946183545209:role/lambda-full-access --profile nypl-digital-dev",
     "run-qa": "sam local start-api --port 3001 --profile nypl-digital-dev --template ./sam-template.qa.yml",
-    "deploy-production": "./node_modules/.bin/node-lambda deploy -e production -f ./config/production.env -b subnet-59bcdd03,subnet-5deecd15 -g sg-116eeb60 --role arn:aws:iam::946183545209:role/lambda-full-access --profile nypl-digital-dev",
     "run-production": "sam local start-api --port 3001 --profile nypl-digital-dev --template ./sam-template.production.yml",
     "test": "./node_modules/.bin/standard --env mocha --globals expect && NODE_ENV=test ./node_modules/.bin/mocha test"
   },
@@ -35,8 +38,9 @@
     "chai": "^4.1.2",
     "chia": "0.0.1",
     "lambda-tester": "^3.1.0",
-    "mocha": "^4.0.1",
-    "node-lambda": "^0.11.4"
+    "mocha": "^4.1.0",
+    "node-lambda": "^0.11.4",
+    "standard": "^11.0.1"
   },
   "standard": {
     "globals": [
